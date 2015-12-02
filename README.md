@@ -1,0 +1,1 @@
+# Automate-Gen-File-Laravel 
