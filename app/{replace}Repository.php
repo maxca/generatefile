@@ -1,49 +1,50 @@
-<?php namespace App\Repositories\Storage\{prefix}\{replace};
+<?php 
+namespace App\Repository\{replace};
 
-use App\Models\{prefix}\{replace};
-use Prettus\Repository\Eloquent\BaseRepository;
-use App\Repositories\Interfaces\{prefix}\{replace}\{replace}Interface;
+use App\Models\{replace}\{replace}Model;
+use App\Repository\BaseRepository;
+use App\Repository\{replace}\{replace}Interface;
+
 class {replace}Repository extends BaseRepository implements {replace}Interface
 {
+    /**
+     * set limit
+     * @var integer
+     */
+    protected $limit = 30;
 
     /**
-     * Specify Model class name
-     *
-     * @return string
+     * set order by column
+     * @var string
      */
-    public function model()
+    protected $orderBy = 'id';
+
+    /**
+     * set sort type
+     * @var string
+     */
+    protected $sortType = 'desc';    
+
+     /**
+     * set class model
+     * @var [type]
+     */
+    protected $classModel = {replace}Model::class;
+
+    public function __construct()
     {
-        return "App\\Models\\{prefix}\\{replace}";
+        parent::__construct();
     }
     
     /**
-     * [boot automatic boot]
-     * @return [type] [description]
+     * get data by id
+     * @return object
      */
-    public function boot()
+    public function get{replace}ByID($id)
     {
-        $this->pushCriteria(new \App\Repositories\Criterias\{prefix}\{replace}\{replace}Criteria);
-        $this->applyCriteria();
+        return $this->model->find($id);
     }
-
-    public function get{replace}() 
-    {
-        $limit = (\Input::has('limit')) ? \input::get('limit') : '30';
-        $offset = (\Input::has('offset')) ? \input::get('offset') : '0';
-        $this->model->take($limit)->skip($offset)->orderBy('created_at', 'desc');
-        $data = $this->model->get();
-        $res = $this->presenterMake($data);
-    }
-
-    public function presenterMake($data)
-    {
-        $this->makePresenter("App\\Repositories\\Presenters\\{prefix}\\{replace}\\{replace}Presenter");
-         foreach ($data as $key => $value) {
-            $_j = $this->presenter->present($value);
-            $_k[$key] = $_j['data'];
-        }
-        return $_k;
-    }
+   
 
 
 }
